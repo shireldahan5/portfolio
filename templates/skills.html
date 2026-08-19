@@ -54,6 +54,39 @@
 
 
 <!-- ══════════════════════════════════════════════════════════════
+     CERTIFICATIONS
+     Scorecard-style layout, same pattern as Awards on the
+     Experience page: date left, title/issuer/desc right.
+══════════════════════════════════════════════════════════════════ -->
+<section class="certifications" aria-label="Certifications">
+  <div class="certifications__inner">
+
+    <div class="section-label">
+      <span class="section-label__index" aria-hidden="true">✦</span>
+      <span class="section-label__text">CERTIFICATIONS</span>
+    </div>
+
+    <div class="certifications__grid">
+      {% for cert in certifications %}
+      <div class="cert-card fade-in">
+        <span class="cert-card__date">{{ cert.date }}</span>
+        <div class="cert-card__body">
+          <h3 class="cert-card__title">{{ cert.title }}</h3>
+          <p class="cert-card__issuer">{{ cert.issuer }}</p>
+          <p class="cert-card__desc">{{ cert.description }}</p>
+        </div>
+        {% if cert.link %}
+        <a href="{{ cert.link }}" class="cert-card__link" target="_blank" rel="noopener noreferrer">Verify &rarr;</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+  </div><!-- /certifications__inner -->
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════
      STRENGTHS, Editorial prose block
      Not just hard skills. Who Shirel is as an engineer.
 ══════════════════════════════════════════════════════════════════ -->

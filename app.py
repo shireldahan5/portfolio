@@ -104,6 +104,21 @@ def experience():
                 "things that feel as good as they function."
             ),
         },
+        {
+            "category": "OPEN SOURCE",
+            "date": "2026 to Present",
+            "title": "Contributor",
+            "organization": "POP, Perioperative Care Plan",
+            "location": "Remote",
+            "description": (
+                "Lightly contributing to POP, a multilingual patient-facing care-plan prototype for "
+                "the perioperative journey. Patients upload hospital instructions as a PDF, photo, or "
+                "audio recording, and POP turns that source material into a structured plan covering "
+                "medications, restrictions, events, guidance, questions, education, and day-to-day "
+                "follow-through. The interface currently supports English and Quebec French, with more "
+                "languages planned."
+            ),
+        },
     ]
 
     awards = [
@@ -178,7 +193,40 @@ def skills():
         },
     ]
 
-    return render_template("skills.html", skill_groups=skill_groups)
+    # Certifications, most recent first
+    certifications = [
+        {
+            "title": "Responsive Web Design",
+            "issuer": "freeCodeCamp",
+            "date": "Aug 2026",
+            "description": (
+                "Developer Certification representing approximately 300 hours of coursework "
+                "covering responsive layouts, Flexbox, Grid, and accessible design."
+            ),
+            "link": "https://freecodecamp.org/certification/shireldahan/responsive-web-design-v9",
+        },
+        {
+            "title": "HTML Styling with CSS",
+            "issuer": "Coddy",
+            "date": "Jun 2026",
+            "description": (
+                "Certificate of completion covering applying CSS to structure and style HTML "
+                "documents."
+            ),
+            "link": "",
+        },
+        {
+            "title": "HTML Fundamentals",
+            "issuer": "Coddy",
+            "date": "May 2026",
+            "description": (
+                "Certificate of completion covering core HTML structure, semantics, and markup."
+            ),
+            "link": "",
+        },
+    ]
+
+    return render_template("skills.html", skill_groups=skill_groups, certifications=certifications)
 
 
 @app.route("/projects")

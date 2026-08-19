@@ -199,6 +199,7 @@ strong {
 .quick-facts__inner,
 .timeline__inner,
 .awards__inner,
+.certifications__inner,
 .skills-grid__inner,
 .strengths__inner,
 .projects-grid__inner,
@@ -1279,6 +1280,7 @@ strong {
 .timeline-card__category--engineering  { color: #7ec8a0; border: 1px solid rgba(126,200,160,0.3); }
 .timeline-card__category--building     { color: #a8c4e0; border: 1px solid rgba(168,196,224,0.3); }
 .timeline-card__category--work         { color: #d4a8c8; border: 1px solid rgba(212,168,200,0.3); }
+.timeline-card__category--open-source  { color: #e0a877; border: 1px solid rgba(224,168,119,0.3); }
 
 /* Right body column */
 .timeline-card__body {
@@ -1451,6 +1453,88 @@ strong {
   border-color: var(--c-gold);
   color: var(--c-gold);
   background-color: rgba(201, 168, 76, 0.05);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   19b. CERTIFICATIONS
+════════════════════════════════════════════════════════════════ */
+.certifications {
+  background-color: var(--c-surface);
+  padding: var(--sp-xl) 0;
+  border-top: 1px solid var(--c-line);
+}
+
+.certifications__grid {
+  margin-top: var(--sp-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background-color: var(--c-line);
+}
+
+.cert-card {
+  background-color: var(--c-surface);
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: var(--sp-md);
+  align-items: start;
+  padding: var(--sp-md) var(--sp-lg);
+  transition: background-color var(--t-fast);
+}
+
+.cert-card:hover {
+  background-color: var(--c-surface-2);
+}
+
+.cert-card__date {
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  color: var(--c-gold);
+  font-weight: 700;
+  padding-top: 0.15rem;
+}
+
+.cert-card__title {
+  font-family: var(--f-serif);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  color: var(--c-cream);
+  margin-bottom: 0.25rem;
+}
+
+.cert-card__issuer {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.05em;
+  color: var(--c-warm-gray);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.cert-card__desc {
+  font-size: var(--fs-sm);
+  color: var(--c-warm-gray);
+}
+
+.cert-card__link {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  color: var(--c-gold);
+  white-space: nowrap;
+  padding-top: 0.2rem;
+  transition: color var(--t-fast);
+}
+
+.cert-card__link:hover {
+  color: var(--c-cream);
+}
+
+@media (max-width: 640px) {
+  .cert-card {
+    grid-template-columns: 1fr;
+    gap: var(--sp-xs);
+  }
 }
 
 
