@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Experience &middot; Shirel Dahan{% endblock %}
+
+{# The CV version: work, leadership, education, awards and skills.
+   One list layout is shared by work, leadership and awards. #}
+{% macro rows(items, title_key='role', org_key='org') %}
+<ol class="rows" role="list">
+  {% for item in items %}
+  <li class="row{% if item.note %} row--note{% endif %}" data-reveal>
+    <span class="row__role">{{ item[title_key] }}</span>
+    <span class="row__org">{{ item[org_key] }}</span>
+    <span class="row__dates">{{ item.dates }}</span>
+    {% if item.note %}<span class="row__note">{{ item.note }}</span>{% endif %}
+  </li>
+  {% endfor %}
+</ol>
+{% endmacro %}
+
+{% block description %}Work, leadership, education, awards and skills for Shirel Dahan, a software engineering student at McGill.{% endblock %}
+
+{% block content %}
+<section class="page-head container">
+  <h1 class="page-head__title">
+    <span class="line"><span><em>Experience</em></span></span>
+  </h1>
+  <p class="page-head__text">
+    The r&eacute;sum&eacute; version. For the less formal one, see
+    <a class="u" href="{{ url_for('about') }}">About</a>.
+  </p>
+</section>
+
+
+<section class="section container" aria-labelledby="work-heading">
+  <header class="section-head" data-reveal>
+    <span class="index">(01)</span>
+    <h2 id="work-heading"><em>Work</em></h2>
+    <span class="rule" aria-hidden="true"></span>
+  </header>
+  {{ rows(experience) }}
+</section>
+
+
+<section class="section container" aria-labelledby="leadership-heading">
+  <header class="section-head" data-reveal>
+    <span class="index">(02)</span>
+    <h2 id="leadership-heading">Leadership <em>&amp; involvement</em></h2>
+    <span class="rule" aria-hidden="true"></span>
+  </header>
+  {{ rows(leadership) }}
+</section>
+
+
+<section class="section container" aria-labelledby="education-heading">
+  <header class="section-head" data-reveal>
+    <span class="index">(03)</span>
+    <h2 id="education-heading"><em>Education</em></h2>
+    <span class="rule" aria-hidden="true"></span>
+  </header>
+
+  <ol class="rows" role="list">
+    <li class="row" data-reveal>
+      <span class="row__role">B.Eng. Software Engineering (Co-op)</span>
+      <span class="row__org">McGill University &middot; CGPA 3.6 / 4.0</span>
+      <span class="row__dates">2025 &ndash; 2029</span>
+    </li>
+    <li class="row row--note" data-reveal>
+      <span class="row__role">
+        <a class="u" href="https://freecodecamp.org/certification/shireldahan/responsive-web-design-v9">Responsive Web Design</a>
+      </span>
+      <span class="row__org">freeCodeCamp &middot; Developer Certification</span>
+      <span class="row__dates">Aug 2026</span>
+      <span class="row__note">About 300 hours of coursework on responsive layouts, Flexbox, Grid and accessible design.</span>
+    </li>
+  </ol>
+
+  <div class="courses" data-reveal>
+    <p class="label">Relevant coursework</p>
+    <ul class="courses__list" role="list">
+      {% for course in courses %}
+      <li>{{ course }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+
+<section class="section container" aria-labelledby="awards-heading">
+  <header class="section-head" data-reveal>
+    <span class="index">(04)</span>
+    <h2 id="awards-heading"><em>Awards</em></h2>
+    <span class="rule" aria-hidden="true"></span>
+  </header>
+  {{ rows(awards, 'title', 'from') }}
+</section>
+
+
+<section class="section container" aria-labelledby="skills-heading">
+  <header class="section-head" data-reveal>
+    <span class="index">(05)</span>
+    <h2 id="skills-heading"><em>Skills</em></h2>
+    <span class="rule" aria-hidden="true"></span>
+  </header>
+
+  <dl class="skills">
+    {% for group, list in skills %}
+    <div data-reveal><dt class="label">{{ group }}</dt><dd>{{ list }}</dd></div>
+    {% endfor %}
+  </dl>
+</section>
+{% endblock %}

@@ -35,7 +35,7 @@
 
       <nav aria-label="Main">
         <ul class="site-nav" role="list">
-          {% set nav = [('index', 'Work'), ('about', 'About'), ('contact', 'Contact')] %}
+          {% set nav = [('index', 'Work'), ('about', 'About'), ('experience', 'Experience'), ('contact', 'Contact')] %}
           {% for endpoint, label in nav %}
           <li>
             <a class="u" href="{{ url_for(endpoint) }}"

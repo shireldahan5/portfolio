@@ -242,6 +242,14 @@ a.u {
 .site-nav a.u:hover,
 .site-nav a.u[aria-current] { background-size: 100% 1px; }
 
+/* Phones: four links and the name don't fit on one line, so the nav
+   gets its own row, spread across the full width */
+@media (max-width: 559px) {
+  .site-header__inner { flex-wrap: wrap; row-gap: 0.75rem; padding-block: 1rem 0.85rem; }
+  .site-header nav { width: 100%; }
+  .site-nav { justify-content: space-between; }
+}
+
 
 /* ── 06. Home: hero ──────────────────────────────────────────── */
 .hero {
@@ -490,10 +498,20 @@ a.u {
   line-height: 1.4;
 }
 
-.intro {
-  display: grid;
-  gap: 2.5rem;
+/* One large serif sentence before the story */
+.statement {
+  max-width: 18ch;
   margin-top: clamp(2.5rem, 2rem + 3vw, 5rem);
+  font-family: var(--f-serif);
+  font-size: clamp(2.25rem, 1.4rem + 3.6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+.story {
+  display: grid;
+  gap: 3rem;
+  margin-top: clamp(3rem, 2rem + 4vw, 6rem);
 }
 
 /* Phones: the photo sits to the right, not full width */
@@ -510,26 +528,45 @@ a.u {
   object-position: 50% 22%;
 }
 
-.intro__text {
+.story__text {
   display: grid;
-  gap: 1.25rem;
+  gap: clamp(2.5rem, 2rem + 2vw, 4rem);
   max-width: 36rem;
-  color: var(--muted);
 }
-.intro__lede {
+.story__lede {
   font-size: var(--fs-lead);
   line-height: 1.4;
-  color: var(--ink);
 }
+.story__part {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hair);
+}
+.story__part p { color: var(--muted); }
+.story__heading {
+  font-family: var(--f-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+}
+.story__heading .index { font-size: 1rem; margin-right: 0.4rem; }
+.story__end { font-size: var(--fs-small); color: var(--muted); }
 
+/* Desktop: the photo stays put (sticky) while the story scrolls past */
 @media (min-width: 900px) {
-  .intro {
+  .story {
     grid-template-columns: repeat(12, 1fr);
     column-gap: 2rem;
-    align-items: end;
+    align-items: start;
   }
-  .intro__photo { grid-column: 1 / span 4; width: 100%; margin: 0; }
-  .intro__text  { grid-column: 6 / span 6; }
+  .story__photo {
+    grid-column: 1 / span 4;
+    width: 100%;
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+  }
+  .story__text { grid-column: 6 / span 6; }
 }
 
 .courses {

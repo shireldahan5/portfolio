@@ -64,6 +64,15 @@ PROJECTS = [
 
 EXPERIENCE = [
     {
+        "role": "Study Hall Supervisor",
+        "org": "JASS Tutors, Montreal",
+        "dates": "2026 – now",
+        "note": (
+            "Manage a weekly after-school study hall for elementary students, "
+            "overseeing homework help and tutors."
+        ),
+    },
+    {
         "role": "Water Safety Instructor & Pool Lifeguard",
         "org": "Côte Saint-Luc Aquatic and Community Centre",
         "dates": "2022 – 2024",
@@ -72,12 +81,6 @@ EXPERIENCE = [
             "levels. Supervised swimmers and responded calmly to emergencies, "
             "following safety protocols."
         ),
-    },
-    {
-        "role": "Electrical team",
-        "org": "McGill Formula Electric",
-        "dates": "2025 – now",
-        "note": "Electrical and circuit design for a student-built electric race car.",
     },
 ]
 
@@ -117,16 +120,6 @@ AWARDS = [
         "from": "Jewish Community Foundation of Montreal, $3,500",
         "dates": "2025, 2026",
     },
-    {
-        "title": "Health Science Honours List",
-        "from": "Dawson College",
-        "dates": "2023 – 2025",
-    },
-    {
-        "title": "The Frank Cwilich Prize",
-        "from": "Herzliah High School",
-        "dates": "2023",
-    },
 ]
 
 SKILLS = [
@@ -157,7 +150,7 @@ def site_globals():
 @app.route("/")
 def index():
     # The home page shows the current roles as a short index
-    now = [EXPERIENCE[1], LEADERSHIP[0], LEADERSHIP[1]]
+    now = [EXPERIENCE[0], LEADERSHIP[0], LEADERSHIP[1]]
     return render_template("index.html", projects=PROJECTS, now=now)
 
 
@@ -167,10 +160,16 @@ def work_swim():
     return render_template("work_swim.html", project=project)
 
 
+# About is written, not listed. The CV-style details live on /experience.
 @app.route("/about")
 def about():
+    return render_template("about.html")
+
+
+@app.route("/experience")
+def experience():
     return render_template(
-        "about.html",
+        "experience.html",
         experience=EXPERIENCE,
         leadership=LEADERSHIP,
         awards=AWARDS,
@@ -191,10 +190,9 @@ def old_projects():
     return redirect(url_for("index", _anchor="work"), code=301)
 
 
-@app.route("/experience")
 @app.route("/skills")
-def old_about_pages():
-    return redirect(url_for("about"), code=301)
+def old_skills():
+    return redirect(url_for("experience"), code=301)
 
 
 @app.errorhandler(404)

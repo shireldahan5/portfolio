@@ -2,20 +2,6 @@
 
 {% block title %}About &middot; Shirel Dahan{% endblock %}
 
-{# One list layout, used for experience, leadership and awards #}
-{% macro rows(items, title_key='role', org_key='org') %}
-<ol class="rows" role="list">
-  {% for item in items %}
-  <li class="row{% if item.note %} row--note{% endif %}" data-reveal>
-    <span class="row__role">{{ item[title_key] }}</span>
-    <span class="row__org">{{ item[org_key] }}</span>
-    <span class="row__dates">{{ item.dates }}</span>
-    {% if item.note %}<span class="row__note">{{ item.note }}</span>{% endif %}
-  </li>
-  {% endfor %}
-</ol>
-{% endmacro %}
-
 {% block content %}
 <section class="page-head container">
   <h1 class="page-head__title">
@@ -23,104 +9,63 @@
   </h1>
 </section>
 
-<section class="intro container">
-  <figure class="intro__photo" data-reveal>
+<section class="container">
+  <p class="statement" data-reveal>
+    I like building things for people I can <em>picture</em> using them.
+  </p>
+</section>
+
+<section class="story container">
+  <!-- Desktop: the photo stays in place while the text scrolls past it -->
+  <figure class="story__photo intro__photo" data-reveal>
     <img src="{{ url_for('static', filename='img/shirel.jpg') }}"
          alt="Shirel Dahan, smiling, in a white t-shirt in front of a wrought-iron gate."
          width="470" height="1024" />
   </figure>
 
-  <div class="intro__text">
-    <p class="intro__lede" data-reveal>
-      I&rsquo;m in my second year of Software Engineering (Co-op) at McGill.
-      I learn best by building things, and I pay attention to how they
-      look and feel as much as how they work.
+  <div class="story__text">
+    <p class="story__lede" data-reveal>
+      I&rsquo;m Shirel, a second-year Software Engineering student at McGill,
+      based in Montréal.
     </p>
-    <p data-reveal>
-      I also contribute to POP, a two-person startup building AI care plans
-      for patients. Outside of class I&rsquo;m on the electrical team at McGill
-      Formula Electric, I run Save A Child&rsquo;s Heart McGill, and I lead
-      social media for Google Developer Groups McGill.
+
+    <div class="story__part" data-reveal>
+      <h2 class="story__heading"><span class="index">(i)</span> Other people&rsquo;s <em>kids</em></h2>
+      <p>
+        Most of my jobs so far have involved other people&rsquo;s kids. I taught
+        swimming and lifeguarded at the Côte Saint-Luc pool, and now I run an
+        after-school study hall for elementary students. So when I built a
+        full-stack app of my own, it was a booking site for my swim lessons,
+        designed around the parents who would actually use it.
+      </p>
+    </div>
+
+    <div class="story__part" data-reveal>
+      <h2 class="story__heading"><span class="index">(ii)</span> The <em>details</em></h2>
+      <p>
+        I care about the things people only notice when they&rsquo;re wrong:
+        spacing that&rsquo;s slightly off, text that&rsquo;s hard to read on a
+        phone, a page that jumps around while it loads. This site is where I
+        practise getting them right, mostly in plain HTML and CSS.
+      </p>
+    </div>
+
+    <div class="story__part" data-reveal>
+      <h2 class="story__heading"><span class="index">(iii)</span> Looking after <em>people</em></h2>
+      <p>
+        Written down, a lot of what I do outside class comes back to looking
+        after people. I volunteered as a first responder with Magen David Adom,
+        I help out with Chabad Care, and I run Save A Child&rsquo;s Heart McGill.
+        POP sits right in the middle of that: a two-person startup that turns
+        patients&rsquo; medical instructions into care plans, where I&rsquo;m
+        planning a feature for people living with long-term conditions.
+      </p>
+    </div>
+
+    <p class="story__end" data-reveal>
+      I speak English, French and a little Hebrew. The formal version, with
+      dates, is on the <a class="u" href="{{ url_for('experience') }}">Experience</a> page.
     </p>
   </div>
-</section>
-
-
-<section class="section container" id="experience" aria-labelledby="experience-heading">
-  <header class="section-head" data-reveal>
-    <span class="index">(01)</span>
-    <h2 id="experience-heading"><em>Experience</em></h2>
-    <span class="rule" aria-hidden="true"></span>
-  </header>
-  {{ rows(experience) }}
-</section>
-
-
-<section class="section container" aria-labelledby="leadership-heading">
-  <header class="section-head" data-reveal>
-    <span class="index">(02)</span>
-    <h2 id="leadership-heading">Leadership <em>&amp; involvement</em></h2>
-    <span class="rule" aria-hidden="true"></span>
-  </header>
-  {{ rows(leadership) }}
-</section>
-
-
-<section class="section container" aria-labelledby="education-heading">
-  <header class="section-head" data-reveal>
-    <span class="index">(03)</span>
-    <h2 id="education-heading"><em>Education</em></h2>
-    <span class="rule" aria-hidden="true"></span>
-  </header>
-
-  <ol class="rows" role="list">
-    <li class="row" data-reveal>
-      <span class="row__role">B.Eng. Software Engineering (Co-op)</span>
-      <span class="row__org">McGill University &middot; CGPA 3.6 / 4.0</span>
-      <span class="row__dates">2025 &ndash; 2029</span>
-    </li>
-    <li class="row row--note" data-reveal>
-      <span class="row__role">
-        <a class="u" href="https://freecodecamp.org/certification/shireldahan/responsive-web-design-v9">Responsive Web Design</a>
-      </span>
-      <span class="row__org">freeCodeCamp &middot; Developer Certification</span>
-      <span class="row__dates">Aug 2026</span>
-      <span class="row__note">About 300 hours of coursework on responsive layouts, Flexbox, Grid and accessible design.</span>
-    </li>
-  </ol>
-
-  <div class="courses" data-reveal>
-    <p class="label">Relevant coursework</p>
-    <ul class="courses__list" role="list">
-      {% for course in courses %}
-      <li>{{ course }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-</section>
-
-
-<section class="section container" aria-labelledby="awards-heading">
-  <header class="section-head" data-reveal>
-    <span class="index">(04)</span>
-    <h2 id="awards-heading"><em>Awards</em></h2>
-    <span class="rule" aria-hidden="true"></span>
-  </header>
-  {{ rows(awards, 'title', 'from') }}
-</section>
-
-
-<section class="section container" aria-labelledby="skills-heading">
-  <header class="section-head" data-reveal>
-    <span class="index">(05)</span>
-    <h2 id="skills-heading"><em>Skills</em></h2>
-    <span class="rule" aria-hidden="true"></span>
-  </header>
-
-  <dl class="skills">
-    {% for group, list in skills %}
-    <div data-reveal><dt class="label">{{ group }}</dt><dd>{{ list }}</dd></div>
-    {% endfor %}
-  </dl>
 </section>
 {% endblock %}
