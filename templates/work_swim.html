@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Swim with Shirel &middot; Shirel Dahan{% endblock %}
+{% block description %}Case study: a booking site for private children's swim lessons in Côte Saint-Luc, designed and built by Shirel Dahan.{% endblock %}
+
+{% block content %}
+<article class="case container">
+
+  <header class="case__header">
+    <p class="label"><a href="{{ url_for('index') }}">Work</a></p>
+    <h1 class="case__title">{{ project.title }}</h1>
+    <p class="case__lede">{{ project.summary }}</p>
+
+    <dl class="meta meta--row">
+      <div><dt>Role</dt><dd>{{ project.role }}</dd></div>
+      <div><dt>Built with</dt><dd>{{ project.stack }}</dd></div>
+      <div><dt>Year</dt><dd>{{ project.year }}</dd></div>
+    </dl>
+
+    <ul class="link-list" role="list">
+      <li><a href="{{ project.live }}">Visit the site</a></li>
+      <li><a href="{{ project.code }}">Code on GitHub</a></li>
+    </ul>
+  </header>
+
+  <figure class="case__figure case__figure--wide">
+    <img src="{{ url_for('static', filename='img/work/swim-desktop.jpg') }}"
+         alt="{{ project.image_alt }}" width="1440" height="900" />
+    <figcaption>Home page at desktop width.</figcaption>
+  </figure>
+
+  <section class="case__section">
+    <h2 class="case__heading">Who it is for</h2>
+    <div class="prose">
+      <p>
+        I have taught private swim lessons to children in Côte Saint-Luc since 2020,
+        from babies at six months to twelve-year-olds working on their strokes.
+        The people using this site are their parents.
+      </p>
+      <p>
+        Many of the families I teach chose private lessons because they value privacy,
+        modesty and a calm setting. So the copy leads with that: one-on-one lessons,
+        a quiet private pool, no crowds. The rest of the site answers the practical
+        questions: price, policies, and when there is space.
+      </p>
+    </div>
+  </section>
+
+  <section class="case__section">
+    <h2 class="case__heading">What it does</h2>
+    <div class="prose">
+      <ul>
+        <li>Parents browse open times on an availability calendar.</li>
+        <li>
+          Booking is a request, not an instant reservation. The form is split into
+          five short steps (you, your children, lesson type, schedule, review), and
+          I confirm within 24 hours by email.
+        </li>
+        <li>A password-protected admin page where I manage availability, bookings and reviews.</li>
+        <li>
+          A season notice at the top of the home page, so the site can stay up
+          between summers without people trying to book.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="case__pair">
+    <figure class="case__figure">
+      <img src="{{ url_for('static', filename='img/work/swim-booking.jpg') }}"
+           alt="Booking page: a navy header reading 'Reserve your spot.' above a five-step progress indicator and the first step of the form."
+           width="1440" height="900" loading="lazy" />
+      <figcaption>The booking request, split into five steps.</figcaption>
+    </figure>
+    <figure class="case__figure case__figure--phone">
+      <img src="{{ url_for('static', filename='img/work/swim-mobile.jpg') }}"
+           alt="Home page on a phone: the same headline and text stacked in one column, with the pool photo below the buttons."
+           width="390" height="844" loading="lazy" />
+      <figcaption>The same page on a phone.</figcaption>
+    </figure>
+  </div>
+
+  <section class="case__section">
+    <h2 class="case__heading">Design decisions</h2>
+    <div class="prose">
+      <p>
+        <strong>Type.</strong> A heavy, soft serif (Fraunces) for the big
+        &ldquo;swim.&rdquo; and the headings, and DM Sans for everything else.
+        I wanted it to feel friendly to parents without looking like a
+        children&rsquo;s site.
+      </p>
+      <p>
+        <strong>Colour.</strong> Navy, a pool blue and a warm cream background.
+        The one photo on the home page is of the water itself, not of children,
+        which keeps families&rsquo; privacy intact.
+      </p>
+      <p>
+        <strong>Layout.</strong> Text and buttons first, photo second. On a phone,
+        the photo moves below the &ldquo;Book a Lesson&rdquo; button so the main
+        action is on the first screen.
+      </p>
+    </div>
+  </section>
+
+  <section class="case__section">
+    <h2 class="case__heading">About the stack</h2>
+    <div class="prose">
+      <p>
+        This project uses Next.js, React and Tailwind CSS with a small SQLite
+        database, which is a different setup from this portfolio (plain HTML, CSS
+        and Flask). It is deployed on Railway.
+      </p>
+    </div>
+  </section>
+
+  <nav class="case__next" aria-label="More">
+    <a href="{{ url_for('index') }}">&larr; All work</a>
+    <a href="{{ url_for('contact') }}">Get in touch &rarr;</a>
+  </nav>
+</article>
+{% endblock %}

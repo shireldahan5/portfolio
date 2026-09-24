@@ -1,181 +1,47 @@
-<!--
-  index.html, Home Page / Hero
-  Extends the base layout and fills in the main content block.
--->
 {% extends 'base.html' %}
 
-{% block title %}Shirel Dahan | Software Engineer{% endblock %}
-{% block body_class %}page--home{% endblock %}
+{% block title %}Shirel Dahan{% endblock %}
 
 {% block content %}
+<section class="intro container">
+  <h1 class="intro__name">Shirel Dahan</h1>
+  <p class="intro__text">
+    Software engineering student at McGill. I design and build websites,
+    mostly with HTML, CSS and a little JavaScript, and I care about type,
+    spacing and how a page holds up on a phone.
+  </p>
+  <p class="intro__status">Montréal &middot; Looking for a Fall 2026 internship</p>
+</section>
 
-<!-- ══════════════════════════════════════════════════════════════
-     HERO SECTION
-     Full-viewport landing. Left: wordmark + statement + CTAs.
-     Right: abstract monogram visual (pure CSS, no images needed).
-     Background: faint court-line geometry via CSS.
-══════════════════════════════════════════════════════════════════ -->
-<section class="hero" aria-label="Introduction">
+<section class="work container" id="work" aria-labelledby="work-heading">
+  <h2 class="label" id="work-heading">Selected work</h2>
 
-  <!-- Decorative court-line background elements (CSS-drawn, aria-hidden) -->
-  <div class="hero__bg" aria-hidden="true">
-    <div class="hero__court-h1"></div>
-    <div class="hero__court-h2"></div>
-    <div class="hero__court-v1"></div>
-  </div>
+  {% for project in projects %}
+  <article class="project">
+    <a class="project__image" href="{{ url_for('work_' ~ project.slug) }}" tabindex="-1" aria-hidden="true">
+      <img src="{{ url_for('static', filename=project.image) }}"
+           alt="" width="1440" height="900" loading="lazy" />
+    </a>
 
-  <div class="hero__inner">
+    <div class="project__text">
+      <h3 class="project__title">
+        <a href="{{ url_for('work_' ~ project.slug) }}">{{ project.title }}</a>
+      </h3>
+      <p class="project__summary">{{ project.summary }}</p>
 
-    <!-- Left column: text content -->
-    <div class="hero__content">
+      <dl class="meta">
+        <div><dt>Role</dt><dd>{{ project.role }}</dd></div>
+        <div><dt>Built with</dt><dd>{{ project.stack }}</dd></div>
+        <div><dt>Year</dt><dd>{{ project.year }}</dd></div>
+      </dl>
 
-      <!-- Small label above the name, like a category marker -->
-      <p class="hero__label" aria-hidden="true">
-        <span class="hero__label-line"></span>
-        SOFTWARE ENGINEER
-      </p>
-
-      <!-- The wordmark, "SHIREL" small, "DAHAN" massive -->
-      <div class="hero__wordmark">
-        <span class="hero__first-name">SHIREL</span>
-        <h1 class="hero__last-name">DAHAN</h1>
-      </div>
-
-      <!-- Gold divider line, like a tennis baseline -->
-      <div class="hero__divider" aria-hidden="true"></div>
-
-      <!-- Positioning statement -->
-      <p class="hero__statement">
-        Precision-driven. Community-rooted.<br />
-        <em>Engineering what matters.</em>
-      </p>
-
-      <!-- Sub-info -->
-      <p class="hero__sub">
-        McGill University &nbsp;·&nbsp; B.Eng. Software Engineering &nbsp;·&nbsp; Montréal
-      </p>
-
-      <!-- Call-to-action buttons -->
-      <div class="hero__ctas">
-        <a href="{{ url_for('experience') }}" class="btn btn--primary">
-          View My Work
-        </a>
-        <a href="{{ url_for('about') }}" class="btn btn--ghost">
-          About Me
-        </a>
-      </div>
-
-    </div><!-- /hero__content -->
-
-    <!-- Right column: abstract CSS visual (monogram in a circle) -->
-    <div class="hero__visual" aria-hidden="true">
-      <div class="hero__ring hero__ring--outer"></div>
-      <div class="hero__ring hero__ring--mid"></div>
-      <div class="hero__ring hero__ring--inner"></div>
-      <div class="hero__monogram-wrap">
-        <span class="hero__monogram">SD</span>
-      </div>
-      <!-- Decorative arc, suggests ball trajectory -->
-      <div class="hero__arc"></div>
+      <ul class="link-list" role="list">
+        <li><a href="{{ url_for('work_' ~ project.slug) }}">Read the case study</a></li>
+        <li><a href="{{ project.live }}">Visit the site</a></li>
+        <li><a href="{{ project.code }}">Code</a></li>
+      </ul>
     </div>
-
-  </div><!-- /hero__inner -->
-
-  <!-- Scroll indicator -->
-  <div class="hero__scroll" aria-label="Scroll down">
-    <span class="hero__scroll-label">SCROLL</span>
-    <div class="hero__scroll-line"></div>
-  </div>
-
+  </article>
+  {% endfor %}
 </section>
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     INTRO STRIP
-     A single pull-quote summary. Sets the tone quickly.
-══════════════════════════════════════════════════════════════════ -->
-<section class="intro-strip" aria-label="Overview">
-  <div class="intro-strip__inner">
-    <p class="intro-strip__quote">
-      &ldquo;McGill software engineer, AI tools explorer, and electric vehicle contributor,
-      building precision software, learning fast, and figuring out what it means
-      to engineer things that actually matter.&rdquo;
-    </p>
-    <a href="{{ url_for('about') }}" class="intro-strip__link">
-      Read my story <span class="arrow" aria-hidden="true">→</span>
-    </a>
-  </div>
-</section>
-
-
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     CURRENTLY EXPLORING
-     A dynamic ticker-row, easy to update.
-══════════════════════════════════════════════════════════════════ -->
-<section class="currently" aria-label="Currently exploring">
-  <div class="currently__inner">
-    <span class="currently__label">CURRENTLY EXPLORING</span>
-    <div class="currently__track">
-      <span class="currently__item">AI Tools &amp; Claude</span>
-      <span class="currently__dot" aria-hidden="true">·</span>
-      <span class="currently__item">Claude Code &amp; Claude Cowork</span>
-      <span class="currently__dot" aria-hidden="true">·</span>
-      <span class="currently__item">HTML &amp; CSS</span>
-      <span class="currently__dot" aria-hidden="true">·</span>
-      <span class="currently__item">Software Engineering Fundamentals</span>
-      <span class="currently__dot" aria-hidden="true">·</span>
-      <span class="currently__item">Electric Vehicle Systems</span>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     TEASER CARDS
-     Quick links to the main sections, editorial card grid.
-══════════════════════════════════════════════════════════════════ -->
-<section class="teasers" aria-label="Sections">
-  <div class="teasers__inner">
-
-    <a href="{{ url_for('experience') }}" class="teaser-card fade-in">
-      <span class="teaser-card__index" aria-hidden="true">01</span>
-      <div class="teaser-card__body">
-        <h2 class="teaser-card__title">Experience</h2>
-        <p class="teaser-card__desc">
-          McGill Engineering, McGill Formula Electric,
-          and the Gilsig Family Scholarship.
-        </p>
-      </div>
-      <span class="teaser-card__arrow" aria-hidden="true">→</span>
-    </a>
-
-    <a href="{{ url_for('skills') }}" class="teaser-card fade-in">
-      <span class="teaser-card__index" aria-hidden="true">02</span>
-      <div class="teaser-card__body">
-        <h2 class="teaser-card__title">Skills</h2>
-        <p class="teaser-card__desc">
-          Python, Java, HTML, CSS, Git, Claude Code, and a growing
-          command of AI-assisted engineering workflows.
-        </p>
-      </div>
-      <span class="teaser-card__arrow" aria-hidden="true">→</span>
-    </a>
-
-    <a href="{{ url_for('projects') }}" class="teaser-card fade-in">
-      <span class="teaser-card__index" aria-hidden="true">03</span>
-      <div class="teaser-card__body">
-        <h2 class="teaser-card__title">Projects</h2>
-        <p class="teaser-card__desc">
-          Built things, in-progress builds, and the forthcoming
-          work that a first year lays the groundwork for.
-        </p>
-      </div>
-      <span class="teaser-card__arrow" aria-hidden="true">→</span>
-    </a>
-
-  </div>
-</section>
-
 {% endblock %}

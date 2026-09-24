@@ -1,182 +1,70 @@
 <!DOCTYPE html>
-{# ─────────────────────────────────────────────────────────────────
-   base.html, The shared "skeleton" that all pages inherit.
-
-   HOW THIS WORKS:
-   Every page template (index.html, about.html, etc.) starts with:
-       extends 'base.html'
-   That means it inherits everything here, and fills in the
-   "block content" section with page-specific content.
-
-   This prevents you from repeating the nav and footer on every page.
-   ───────────────────────────────────────────────────────────────── #}
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  {# Page title, child templates override this with: block title ... endblock #}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}Shirel Dahan{% endblock %}</title>
+  <meta name="description" content="{% block description %}Shirel Dahan is a software engineering student at McGill University who designs and builds websites with HTML, CSS and a little JavaScript.{% endblock %}" />
 
-  <meta name="description" content="Shirel Dahan | Software Engineering student at McGill University. Precision-driven. Community-rooted. Engineering what matters." />
+  <!-- Link previews (Slack, iMessage, LinkedIn) -->
+  <meta property="og:title" content="{{ self.title() }}" />
+  <meta property="og:description" content="{{ self.description() }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="{{ url_for('static', filename='img/og.png', _external=True) }}" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- ── Google Fonts ─────────────────────────────────────────────
-       Three fonts, three roles:
-       • Cormorant Garamond → editorial serif headings
-       • Space Mono         → monospace labels, dates, indices
-       • Inter              → clean body text
-  ──────────────────────────────────────────────────────────────── -->
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- Main stylesheet, all visual design lives here -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-
-  {% block extra_head %}{% endblock %}
 </head>
 
-{# Child templates set "block body_class" to add a page-specific CSS class to body. #}
-<body class="{% block body_class %}{% endblock %}">
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ══════════════════════════════════════════════════════════════
-       NAVIGATION
-       Fixed at the top. Becomes opaque on scroll (JS handles this).
-       request.endpoint is a Flask variable, it's the name of the
-       current route function (e.g. "index", "about", "contact").
-       We use it to highlight the active nav link.
-  ══════════════════════════════════════════════════════════════════ -->
-  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav__inner">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__name" href="{{ url_for('index') }}">Shirel Dahan</a>
 
-      <!-- Brand monogram, links back to home -->
-      <a href="{{ url_for('index') }}" class="nav__logo" aria-label="Shirel Dahan | Home">
-        <span class="nav__monogram" aria-hidden="true">SD</span>
-      </a>
+      <nav aria-label="Main">
+        <ul class="site-nav" role="list">
+          {% set nav = [('index', 'Work'), ('about', 'About'), ('contact', 'Contact')] %}
+          {% for endpoint, label in nav %}
+          <li>
+            <a href="{{ url_for(endpoint) }}"
+               {% if request.endpoint == endpoint or (endpoint == 'index' and request.endpoint and request.endpoint.startswith('work_')) %}aria-current="page"{% endif %}>
+              {{ label }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-      <!-- Mobile hamburger button, toggled by JavaScript -->
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-      </button>
-
-      <!-- Navigation links -->
-      <ul class="nav__links" id="navLinks" role="list">
-        <li>
-          <a href="{{ url_for('index') }}"
-             class="nav__link {% if request.endpoint == 'index' %}nav__link--active{% endif %}">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('about') }}"
-             class="nav__link {% if request.endpoint == 'about' %}nav__link--active{% endif %}">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('experience') }}"
-             class="nav__link {% if request.endpoint == 'experience' %}nav__link--active{% endif %}">
-            Experience
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('skills') }}"
-             class="nav__link {% if request.endpoint == 'skills' %}nav__link--active{% endif %}">
-            Skills
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('projects') }}"
-             class="nav__link {% if request.endpoint == 'projects' %}nav__link--active{% endif %}">
-            Projects
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('contact') }}"
-             class="nav__link nav__link--contact {% if request.endpoint == 'contact' %}nav__link--active{% endif %}">
-            Contact
-          </a>
-        </li>
-      </ul>
-
-    </div><!-- /nav__inner -->
-  </nav>
-
-  <!-- ══════════════════════════════════════════════════════════════
-       FLASH MESSAGES
-       These appear when the contact form is submitted.
-       Flask's flash() function stores a message between requests.
-       get_flashed_messages() retrieves and removes it.
-  ══════════════════════════════════════════════════════════════════ -->
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="flash-container" role="alert" aria-live="polite">
-        {% for category, message in messages %}
-          <div class="flash flash--{{ category }}">
-            <span class="flash__text">{{ message }}</span>
-            <button class="flash__close" onclick="this.parentElement.remove()" aria-label="Dismiss">&times;</button>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
-
-  <!-- ══════════════════════════════════════════════════════════════
-       MAIN CONTENT
-       Each page template fills this block with its own content.
-  ══════════════════════════════════════════════════════════════════ -->
-  <main id="main-content">
+  <main id="main">
     {% block content %}{% endblock %}
   </main>
 
-  <!-- ══════════════════════════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════════════════════════════ -->
-  <footer class="footer" role="contentinfo">
-
-    <!-- Court-line decoration above footer -->
-    <div class="footer__court-line" aria-hidden="true"></div>
-
-    <div class="footer__inner">
-
-      <!-- Left: Brand -->
-      <div class="footer__brand">
-        <p class="footer__name">SHIREL DAHAN</p>
-        <p class="footer__tagline">Engineering precision. Building impact.</p>
-      </div>
-
-      <!-- Center: Nav links -->
-      <nav class="footer__nav" aria-label="Footer navigation">
-        <a href="{{ url_for('about') }}" class="footer__nav-link">About</a>
-        <a href="{{ url_for('experience') }}" class="footer__nav-link">Experience</a>
-        <a href="{{ url_for('skills') }}" class="footer__nav-link">Skills</a>
-        <a href="{{ url_for('projects') }}" class="footer__nav-link">Projects</a>
-        <a href="{{ url_for('contact') }}" class="footer__nav-link">Contact</a>
-      </nav>
-
-      <!-- Right: Social/Contact links -->
-      <div class="footer__social">
-        <!-- Update these links with your real profiles -->
-        <a href="mailto:shirel.dahan@mail.mcgill.ca" class="footer__social-link">Email</a>
-        <a href="https://linkedin.com/in/shireldahan" class="footer__social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://github.com/shireldahan" class="footer__social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-      </div>
-
-    </div><!-- /footer__inner -->
-
-    <!-- Bottom bar -->
-    <div class="footer__bottom">
-      <p class="footer__copy">
-        © 2025 Shirel Dahan &nbsp;·&nbsp; Montréal, QC &nbsp;·&nbsp; Built with precision
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__contact">
+        <a href="mailto:{{ email }}">{{ email }}</a>
+      </p>
+      <ul class="site-footer__links" role="list">
+        <li><a href="{{ links.github }}">GitHub</a></li>
+        <li><a href="{{ links.linkedin }}">LinkedIn</a></li>
+      </ul>
+      <p class="site-footer__colophon">
+        Built with HTML, CSS, a few lines of JavaScript and Flask.
+        Set in Instrument Serif and Inter.
+        <a href="{{ links.github }}/portfolio">Source on GitHub</a>.
       </p>
     </div>
-
   </footer>
 
-  <!-- Minimal JavaScript, only what's truly needed -->
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </body>
 </html>

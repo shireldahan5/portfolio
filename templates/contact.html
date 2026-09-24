@@ -1,142 +1,29 @@
-<!--
-  contact.html, Contact Page
-  Displays contact info and a Flask-handled form.
-
-  HOW THE FORM WORKS:
-  The form posts to the same URL (/contact) with method="POST".
-  Flask's contact() function in app.py reads the form fields,
-  validates them, and either shows an error or a success message.
-  Flash messages appear via the base.html flash block.
--->
 {% extends 'base.html' %}
 
-{% block title %}Contact | Shirel Dahan{% endblock %}
-{% block body_class %}page--contact{% endblock %}
+{% block title %}Contact &middot; Shirel Dahan{% endblock %}
 
 {% block content %}
+<div class="page container">
+  <h1 class="page__title">Contact</h1>
 
-<header class="page-header">
-  <div class="page-header__inner">
-    <span class="page-header__index" aria-hidden="true">04</span>
-    <div class="page-header__text">
-      <p class="page-header__label">CONTACT</p>
-      <h1 class="page-header__title">Let's talk.</h1>
-    </div>
+  <div class="contact">
+    <p class="contact__text">
+      Email is the best way to reach me. I&rsquo;m looking for a Fall 2026
+      internship, and I&rsquo;m happy to talk about anything on this site.
+    </p>
+
+    <p class="contact__email">
+      <a href="mailto:{{ email }}">{{ email }}</a>
+    </p>
+    <!-- Hidden until main.js confirms the clipboard is available -->
+    <button class="copy-button" type="button" data-copy="{{ email }}" hidden>Copy address</button>
+    <p class="copy-status" role="status" aria-live="polite"></p>
+
+    <dl class="facts facts--compact">
+      <div><dt>GitHub</dt><dd><a href="{{ links.github }}">github.com/shireldahan5</a></dd></div>
+      <div><dt>LinkedIn</dt><dd><a href="{{ links.linkedin }}">linkedin.com/in/shireldahan</a></dd></div>
+      <div><dt>Based in</dt><dd>Montréal, Québec</dd></div>
+    </dl>
   </div>
-  <div class="page-header__line" aria-hidden="true"></div>
-</header>
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     CONTACT LAYOUT, two columns
-     Left: info and direct links.
-     Right: the form.
-══════════════════════════════════════════════════════════════════ -->
-<section class="contact-section" aria-label="Contact">
-  <div class="contact-section__inner">
-
-    <!-- LEFT: Contact info -->
-    <div class="contact-info">
-
-      <p class="contact-info__lead">
-        Whether you are a recruiter, a founder, a fellow student,
-        or anyone curious about what I am building. I want to hear from you.
-      </p>
-
-      <div class="contact-links">
-        <a href="mailto:shirel.dahan@mail.mcgill.ca" class="contact-link">
-          <span class="contact-link__label">EMAIL</span>
-          <span class="contact-link__value">shirel.dahan@mail.mcgill.ca</span>
-        </a>
-        <a href="https://linkedin.com/in/shireldahan" class="contact-link" target="_blank" rel="noopener noreferrer">
-          <span class="contact-link__label">LINKEDIN</span>
-          <span class="contact-link__value">linkedin.com/in/shireldahan</span>
-        </a>
-        <a href="https://github.com/shireldahan" class="contact-link" target="_blank" rel="noopener noreferrer">
-          <span class="contact-link__label">GITHUB</span>
-          <span class="contact-link__value">github.com/shireldahan</span>
-        </a>
-      </div>
-
-      <!-- Court-line decoration -->
-      <div class="contact-info__line" aria-hidden="true"></div>
-
-      <p class="contact-info__note">
-        Based in Montréal, QC.<br />
-        Open to internships, co-op positions, and conversations
-        about interesting problems.
-      </p>
-
-    </div><!-- /contact-info -->
-
-
-    <!-- RIGHT: Contact form -->
-    <!--
-      action="" means submit to the same URL.
-      method="post" tells Flask this is a form submission.
-      The name="" attribute on each input is what Flask reads
-      via request.form.get("name"), request.form.get("email"), etc.
-    -->
-    <div class="contact-form-wrap">
-      <form
-        class="contact-form"
-        action="{{ url_for('contact') }}"
-        method="post"
-        novalidate
-        aria-label="Contact form"
-      >
-
-        <div class="form-group">
-          <label class="form-label" for="name">YOUR NAME</label>
-          <input
-            class="form-input"
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Shirel Dahan"
-            required
-            autocomplete="name"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="email">EMAIL ADDRESS</label>
-          <input
-            class="form-input"
-            type="email"
-            id="email"
-            name="email"
-            placeholder="you@example.com"
-            required
-            autocomplete="email"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="message">MESSAGE</label>
-          <textarea
-            class="form-input form-input--textarea"
-            id="message"
-            name="message"
-            placeholder="Tell me what you are working on, or what you would like to know about me..."
-            rows="6"
-            required
-          ></textarea>
-        </div>
-
-        <!-- Submit button -->
-        <button type="submit" class="btn btn--primary btn--full">
-          Send Message →
-        </button>
-
-        <p class="form-note">
-          I typically respond within 24 hours.
-        </p>
-
-      </form>
-    </div><!-- /contact-form-wrap -->
-
-  </div><!-- /contact-section__inner -->
-</section>
-
+</div>
 {% endblock %}

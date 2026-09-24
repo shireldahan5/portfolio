@@ -1,202 +1,67 @@
-<!--
-  about.html, About Page
-  Personal introduction, background, and what drives Shirel.
--->
 {% extends 'base.html' %}
 
-{% block title %}About | Shirel Dahan{% endblock %}
-{% block body_class %}page--about{% endblock %}
+{% block title %}About &middot; Shirel Dahan{% endblock %}
 
 {% block content %}
+<div class="page container">
+  <h1 class="page__title">About</h1>
 
-<!-- Page header, consistent across inner pages -->
-<header class="page-header">
-  <div class="page-header__inner">
-    <span class="page-header__index" aria-hidden="true">00</span>
-    <div class="page-header__text">
-      <p class="page-header__label">ABOUT</p>
-      <h1 class="page-header__title">A fuller picture.</h1>
-    </div>
-  </div>
-  <div class="page-header__line" aria-hidden="true"></div>
-</header>
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     ABOUT, MAIN INTRO
-     Two-column: text left, decorative element right.
-══════════════════════════════════════════════════════════════════ -->
-<section class="about-intro">
-  <div class="about-intro__inner">
-
-    <!-- Left: Text -->
-    <div class="about-intro__text">
-      <p class="about-intro__lead">
-        I am a Software Engineering student at McGill University, early in the journey,
-        and already building things that would have felt impossible a year ago.
+  <div class="about">
+    <div class="prose about__text">
+      <p class="about__lede">
+        I&rsquo;m a second-year software engineering student at McGill.
+        I got into web development by building things I needed, like the
+        booking site for my swim lessons.
       </p>
-      <p class="about-intro__body">
-        I got serious about AI tools early. Claude Code and Claude Cowork have become
-        genuine parts of how I work, not shortcuts, but amplifiers. They let me move
-        faster, ask better questions, and ship things while still learning the fundamentals
-        underneath them. This portfolio is one example of what that looks like in practice.
+      <p>
+        I like the part of software you can see: layout, type, spacing, and the
+        small details that decide whether a page feels finished. Most of that I
+        have learned with plain HTML and CSS, including freeCodeCamp&rsquo;s
+        Responsive Web Design certification.
       </p>
-      <p class="about-intro__body">
-        At McGill, I am studying the technical disciplines that build real leverage:
-        algorithms, systems, circuit logic, probability. I am also a member of
-        McGill Formula Electric, contributing to the electrical systems of a competitive
-        race car alongside engineers who are genuinely serious about their craft.
-        That environment raises the bar for me every week.
+      <p>
+        Outside of class I&rsquo;m on the electrical team at McGill Formula Electric.
+        In the summer I teach swimming to children, which I have done since 2020.
       </p>
-      <p class="about-intro__body">
-        I care about the craft of software, not just that code runs, but that it is
-        clean, intentional, and legible to the next person. HTML and CSS taught me that
-        design decisions are engineering decisions. Building this site taught me more
-        than any tutorial.
-      </p>
-      <p class="about-intro__body">
-        I am not the finished product. But I am serious, fast, and only getting started.
+      <p>
+        I use Claude Code as a pair programmer and tutor, and I make sure I can
+        explain every line I ship.
       </p>
     </div>
 
-    <!-- Right: Decorative visual, abstract "SD" with court geometry -->
-    <aside class="about-intro__visual" aria-hidden="true">
-      <div class="about-visual">
-        <div class="about-visual__ring"></div>
-        <div class="about-visual__grid"></div>
-        <div class="about-visual__facts">
-          <div class="about-fact">
-            <span class="about-fact__val">McGill</span>
-            <span class="about-fact__key">University</span>
-          </div>
-          <div class="about-fact">
-            <span class="about-fact__val">Co-op</span>
-            <span class="about-fact__key">Program</span>
-          </div>
-          <div class="about-fact">
-            <span class="about-fact__val">2025</span>
-            <span class="about-fact__key">Enrolled</span>
-          </div>
-          <div class="about-fact">
-            <span class="about-fact__val">2029</span>
-            <span class="about-fact__key">Expected</span>
-          </div>
-        </div>
+    <dl class="facts">
+      <div>
+        <dt>Studying</dt>
+        <dd>B.Eng. Software Engineering (Co-op), McGill University, 2025&ndash;2029</dd>
       </div>
-    </aside>
-
-  </div><!-- /about-intro__inner -->
-</section>
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     MANIFESTO / BRAND STATEMENT
-     The single boldest thing on the page.
-══════════════════════════════════════════════════════════════════ -->
-<section class="manifesto" aria-label="Personal statement">
-  <div class="manifesto__inner">
-    <div class="manifesto__court-line" aria-hidden="true"></div>
-    <blockquote class="manifesto__quote">
-      Engineering is not just building things that work.<br />
-      It is building things that <em>matter</em>: systems that hold,
-      code that endures, and people who trust you to get it right.
-      I am here to earn that trust, one commit at a time.
-    </blockquote>
-    <div class="manifesto__court-line" aria-hidden="true"></div>
-  </div>
-</section>
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     WHAT DRIVES ME
-     Three pillars, editorial three-column layout.
-══════════════════════════════════════════════════════════════════ -->
-<section class="pillars" aria-label="What drives me">
-  <div class="pillars__inner">
-
-    <div class="pillars__header">
-      <span class="pillars__label">WHAT DRIVES ME</span>
-    </div>
-
-    <div class="pillars__grid">
-
-      <div class="pillar fade-in">
-        <span class="pillar__index" aria-hidden="true">I</span>
-        <h2 class="pillar__title">AI-Native</h2>
-        <p class="pillar__text">
-          I started using Claude Code and Claude Cowork seriously in my first year.
-          Not to replace thinking, but to do more of it, faster, on harder problems.
-          I want to be the kind of engineer who knows how to use every tool available.
-        </p>
+      <div>
+        <dt>Team</dt>
+        <dd>McGill Formula Electric, electrical division</dd>
       </div>
-
-      <div class="pillar fade-in">
-        <span class="pillar__index" aria-hidden="true">II</span>
-        <h2 class="pillar__title">Precision</h2>
-        <p class="pillar__text">
-          I care about doing things correctly, not just quickly.
-          Whether it is a CSS layout, a Python function, or a circuit schematic,
-          I want the output to be right and the code to be legible.
-        </p>
+      <div>
+        <dt>Teaching</dt>
+        <dd>Private swim instructor since 2020, former certified lifeguard</dd>
       </div>
-
-      <div class="pillar fade-in">
-        <span class="pillar__index" aria-hidden="true">III</span>
-        <h2 class="pillar__title">Builder's Bias</h2>
-        <p class="pillar__text">
-          I learn by building real things, not toy examples. This portfolio,
-          built with Flask and CSS from scratch, taught me more than any tutorial.
-          That orientation toward shipping is something I bring to every project.
-        </p>
+      <div>
+        <dt>Open source</dt>
+        <dd>Small contributions to POP, a multilingual patient care-plan prototype</dd>
       </div>
-
-    </div><!-- /pillars__grid -->
-
-  </div><!-- /pillars__inner -->
-</section>
-
-
-<!-- ══════════════════════════════════════════════════════════════
-     QUICK FACTS, Education + Languages + Outside the Lab
-══════════════════════════════════════════════════════════════════ -->
-<section class="quick-facts" aria-label="Quick facts">
-  <div class="quick-facts__inner">
-
-    <div class="qf-block fade-in">
-      <p class="qf-block__label">EDUCATION</p>
-      <p class="qf-block__main">B.Eng. Software Engineering (Co-op)</p>
-      <p class="qf-block__sub">McGill University · 2025 to 2029 (Expected)</p>
-    </div>
-
-    <div class="qf-block fade-in">
-      <p class="qf-block__label">AI TOOLS</p>
-      <p class="qf-block__main">Claude Code · Claude Cowork</p>
-      <p class="qf-block__sub">Using AI as a core engineering workflow</p>
-    </div>
-
-    <div class="qf-block fade-in">
-      <p class="qf-block__label">BASED IN</p>
-      <p class="qf-block__main">Montréal, Québec</p>
-      <p class="qf-block__sub">Open to opportunities everywhere</p>
-    </div>
-
-    <div class="qf-block fade-in">
-      <p class="qf-block__label">CURRENTLY BUILDING</p>
-      <p class="qf-block__main">HTML · CSS · Flask · Python</p>
-      <p class="qf-block__sub">Web projects, design systems, and this site</p>
-    </div>
-
+      <div>
+        <dt>Certificate</dt>
+        <dd>
+          <a href="https://freecodecamp.org/certification/shireldahan/responsive-web-design-v9">Responsive Web Design</a>,
+          freeCodeCamp, 2026
+        </dd>
+      </div>
+      <div>
+        <dt>Award</dt>
+        <dd>Gilsig Family Scholarship, McGill Engineering, 2025</dd>
+      </div>
+      <div>
+        <dt>Languages</dt>
+        <dd>English, French, Hebrew</dd>
+      </div>
+    </dl>
   </div>
-</section>
-
-
-<!-- CTA at the bottom -->
-<section class="about-cta">
-  <div class="about-cta__inner">
-    <p class="about-cta__text">Want to know what I have been building?</p>
-    <a href="{{ url_for('experience') }}" class="btn btn--primary">View My Experience</a>
-    <a href="{{ url_for('contact') }}" class="btn btn--ghost">Get in Touch</a>
-  </div>
-</section>
-
+</div>
 {% endblock %}
