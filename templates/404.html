@@ -3,11 +3,13 @@
 {% block title %}Page not found &middot; Shirel Dahan{% endblock %}
 
 {% block content %}
-<div class="page container">
-  <h1 class="page__title">Nothing here.</h1>
-  <p class="page__text">
+<section class="page-head container">
+  <h1 class="page-head__title">
+    <span class="line"><span>Nothing <em>here</em></span></span>
+  </h1>
+  <p class="page-head__text">
     That page doesn&rsquo;t exist, or it moved when I rebuilt this site.
-    <a href="{{ url_for('index') }}">Go to the home page</a>.
+    <a class="u" href="{{ url_for('index') }}">Go to the home page</a>.
   </p>
-</div>
+</section>
 {% endblock %}

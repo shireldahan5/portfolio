@@ -3,45 +3,107 @@
 {% block title %}Shirel Dahan{% endblock %}
 
 {% block content %}
-<section class="intro container">
-  <h1 class="intro__name">Shirel Dahan</h1>
-  <p class="intro__text">
-    Software engineering student at McGill. I design and build websites,
-    mostly with HTML, CSS and a little JavaScript, and I care about type,
-    spacing and how a page holds up on a phone.
-  </p>
-  <p class="intro__status">Montréal &middot; Looking for a Summer 2027 internship</p>
+<section class="hero container">
+  <h1 class="hero__name">
+    <span class="line"><span>Shirel</span></span>
+    <span class="line"><span><em>Dahan</em></span></span>
+  </h1>
+
+  <div class="hero__grid">
+    <p class="hero__lede">
+      Software engineering student at McGill. I build things for the web
+      and care about the details: type, spacing, and how a page holds up
+      on a phone.
+    </p>
+
+    <dl class="hero__meta">
+      <div><dt class="label">Studying</dt><dd>B.Eng. Software Engineering (Co-op), McGill, 2025&ndash;2029</dd></div>
+      <div><dt class="label">Looking for</dt><dd>A Summer 2027 internship</dd></div>
+      <div><dt class="label">Based in</dt><dd>Montréal</dd></div>
+    </dl>
+  </div>
 </section>
 
-<section class="work container" id="work" aria-labelledby="work-heading">
-  <h2 class="label" id="work-heading">Selected work</h2>
+
+<section class="section container" id="work" aria-labelledby="work-heading">
+  <header class="section-head" data-reveal>
+    <span class="index">(01)</span>
+    <h2 id="work-heading">Selected <em>work</em></h2>
+    <span class="rule" aria-hidden="true"></span>
+  </header>
 
   {% for project in projects %}
-  <article class="project">
-    <a class="project__image" href="{{ url_for('work_' ~ project.slug) }}" tabindex="-1" aria-hidden="true">
-      <img src="{{ url_for('static', filename=project.image) }}"
-           alt="" width="1440" height="900" loading="lazy" />
+  {% if project.slug %}
+  {% set case_url = url_for('work_' ~ project.slug) %}
+  <article class="feature">
+    <a class="feature__media" href="{{ case_url }}" tabindex="-1" aria-hidden="true" data-reveal>
+      <!-- Phones get the phone screenshot, cropped tall. Wider screens
+           get the desktop one. -->
+      <picture class="feature__picture">
+        <source media="(max-width: 700px)" srcset="{{ url_for('static', filename=project.image_mobile) }}" width="780" height="1688" />
+        <img src="{{ url_for('static', filename=project.image) }}" alt="" width="2880" height="1800" />
+      </picture>
+      <span class="feature__hint">View case study</span>
     </a>
 
-    <div class="project__text">
-      <h3 class="project__title">
-        <a href="{{ url_for('work_' ~ project.slug) }}">{{ project.title }}</a>
-      </h3>
-      <p class="project__summary">{{ project.summary }}</p>
+    <div class="feature__text" data-reveal>
+      <p class="label">{{ project.number }} &middot; {{ project.kind }} &middot; {{ project.date }}</p>
+      <h3 class="feature__title"><a href="{{ case_url }}">{{ project.title }}</a></h3>
+      <p class="feature__summary">{{ project.summary }}</p>
 
       <dl class="meta">
-        <div><dt>Role</dt><dd>{{ project.role }}</dd></div>
-        <div><dt>Built with</dt><dd>{{ project.stack }}</dd></div>
-        <div><dt>Year</dt><dd>{{ project.year }}</dd></div>
+        <div><dt class="label">Role</dt><dd>{{ project.role }}</dd></div>
+        <div><dt class="label">Built with</dt><dd>{{ project.stack }}</dd></div>
       </dl>
 
       <ul class="link-list" role="list">
-        <li><a href="{{ url_for('work_' ~ project.slug) }}">Read the case study</a></li>
-        <li><a href="{{ project.live }}">Visit the site</a></li>
-        <li><a href="{{ project.code }}">Code</a></li>
+        <li><a class="u" href="{{ case_url }}">Case study</a></li>
+        <li><a class="u" href="{{ project.live }}">Live site</a></li>
+        <li><a class="u" href="{{ project.code }}">Code</a></li>
       </ul>
     </div>
   </article>
+  {% else %}
+  <!-- A project without screenshots: the title carries it instead -->
+  <article class="feature feature--text">
+    <div class="feature__lead" data-reveal>
+      <p class="label">{{ project.number }} &middot; {{ project.kind }} &middot; {{ project.date }}</p>
+      <h3 class="feature__title feature__title--big"><a href="{{ project.live }}">{{ project.title }}</a></h3>
+    </div>
+
+    <div class="feature__text" data-reveal>
+      <p class="feature__summary">{{ project.summary }}</p>
+      <dl class="meta">
+        <div><dt class="label">Role</dt><dd>{{ project.role }}</dd></div>
+        <div><dt class="label">Built with</dt><dd>{{ project.stack }}</dd></div>
+      </dl>
+      <ul class="link-list" role="list">
+        <li><a class="u" href="{{ project.live }}">{{ project.live_label }}</a></li>
+      </ul>
+    </div>
+  </article>
+  {% endif %}
   {% endfor %}
+</section>
+
+
+<section class="section container" aria-labelledby="now-heading">
+  <header class="section-head" data-reveal>
+    <span class="index">(02)</span>
+    <h2 id="now-heading">Right <em>now</em></h2>
+    <span class="rule" aria-hidden="true"></span>
+  </header>
+
+  <ol class="rows" role="list">
+    {% for item in now %}
+    <li class="row" data-reveal>
+      <span class="row__role">{{ item.role }}</span>
+      <span class="row__org">{{ item.org }}</span>
+      <span class="row__dates">{{ item.dates }}</span>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <p class="section__more" data-reveal><a class="u" href="{{ url_for('about') }}">Experience, awards and skills</a></p>
 </section>
 {% endblock %}

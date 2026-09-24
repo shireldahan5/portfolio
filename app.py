@@ -1,7 +1,7 @@
 # app.py, Shirel Dahan portfolio
 #
-# Content that repeats (projects, links) lives here as plain Python data,
-# and the templates decide how it looks.
+# Content that repeats (projects, experience, awards, links) lives here
+# as plain Python data, and the templates decide how it looks.
 
 import os
 
@@ -11,46 +11,154 @@ app = Flask(__name__)
 
 
 EMAIL = "shirel.dahan@mail.mcgill.ca"
+PHONE = "(438) 827-8376"
 
 LINKS = {
     "github": "https://github.com/shireldahan5",
     "linkedin": "https://linkedin.com/in/shireldahan",
 }
 
-# Selected work shown on the home page. Each project with a "slug"
-# also has its own case study page at /work/<slug>.
+# Selected work shown on the home page. A project with a "slug" also
+# has its own case study page at /work/<slug>.
 PROJECTS = [
     {
         "slug": "swim",
+        "number": "01",
         "title": "Swim with Shirel",
-        "year": "2026",
+        "kind": "Swim lesson booking app",
+        "date": "April 2026",
         "summary": (
-            "A booking site for the private swim lessons I have taught since 2020. "
-            "Parents see open times, request a lesson in five short steps, "
-            "and I confirm by email."
+            "A full-stack reservation platform for my swim lessons. Parents can book "
+            "single, multi-session or recurring weekly lessons for several children "
+            "in one booking, and every request goes through an admin approval step."
         ),
-        "role": "Design and development",
-        "stack": "Next.js, React, TypeScript, Tailwind CSS, SQLite",
+        "role": "Design, development and deployment",
+        "stack": "Next.js, React, TypeScript, Tailwind CSS, SQLite, Railway",
         "live": "https://swim-with-shirel-production.up.railway.app/",
         "code": "https://github.com/shireldahan5/swim-with-shirel",
         "image": "img/work/swim-desktop.jpg",
+        "image_mobile": "img/work/swim-mobile.jpg",
         "image_alt": (
             "Swim with Shirel home page: a large navy serif headline reading "
             "'swim. with Shirel.' next to a photo of pool water."
         ),
     },
+    {
+        "slug": None,
+        "number": "02",
+        "title": "POP",
+        "kind": "AI patient care-plan platform",
+        "date": "January 2026 – now",
+        "summary": (
+            "A web app from a two-person startup that uses AI to turn patients’ "
+            "medical instructions into personalized care plans. I’m planning the "
+            "architecture for a new chronic-conditions feature, which extends the app "
+            "from post-surgical recovery to long-term condition support."
+        ),
+        "role": "Contributor",
+        "stack": "Next.js, React, TypeScript, Supabase, Claude API",
+        "live": "https://www.pophealth.ai/",
+        "live_label": "pophealth.ai",
+    },
+]
+
+EXPERIENCE = [
+    {
+        "role": "Water Safety Instructor & Pool Lifeguard",
+        "org": "Côte Saint-Luc Aquatic and Community Centre",
+        "dates": "2022 – 2024",
+        "note": (
+            "Taught swimming and water safety to children and adults of all skill "
+            "levels. Supervised swimmers and responded calmly to emergencies, "
+            "following safety protocols."
+        ),
+    },
+    {
+        "role": "Electrical team",
+        "org": "McGill Formula Electric",
+        "dates": "2025 – now",
+        "note": "Electrical and circuit design for a student-built electric race car.",
+    },
+]
+
+LEADERSHIP = [
+    {
+        "role": "Vice President of Social Media",
+        "org": "Google Developer Groups McGill",
+        "dates": "2026 – now",
+        "note": (
+            "Lead social media strategy and content promoting technical workshops, "
+            "networking events and career opportunities to McGill students."
+        ),
+    },
+    {
+        "role": "President",
+        "org": "Save A Child’s Heart McGill",
+        "dates": "2025 – now",
+        "note": "Direct an executive team to launch fundraising and awareness campaigns.",
+    },
+    {
+        "role": "Volunteer First Responder",
+        "org": "Magen David Adom, Israel",
+        "dates": "Summer 2024",
+        "note": "Assisted in emergency medical response, gaining teamwork and crisis management experience.",
+    },
+    {
+        "role": "Volunteer",
+        "org": "Chabad Care",
+        "dates": "2023 – now",
+        "note": "Support hospital staff and patients through fundraising and community initiatives.",
+    },
+]
+
+AWARDS = [
+    {
+        "title": "Gilsig Family Scholarship for Studies in McGill Engineering",
+        "from": "Jewish Community Foundation of Montreal, $3,500",
+        "dates": "2025, 2026",
+    },
+    {
+        "title": "Health Science Honours List",
+        "from": "Dawson College",
+        "dates": "2023 – 2025",
+    },
+    {
+        "title": "The Frank Cwilich Prize",
+        "from": "Herzliah High School",
+        "dates": "2023",
+    },
+]
+
+SKILLS = [
+    ("Programming", "Java, Python, C, HTML and CSS, Bash, VHDL"),
+    ("Frameworks", "React, Next.js, Tailwind CSS, Flask, JUnit"),
+    ("Tools", "Git and GitHub, Linux and Unix, SQLite, Railway, VS Code, IntelliJ, PyCharm, ModelSim"),
+    ("AI-assisted", "Claude Code"),
+    ("Spoken", "English (native), French (fluent), Hebrew (basic)"),
+]
+
+COURSES = [
+    "Algorithms & Data Structures",
+    "Software Systems (C, Unix, Bash)",
+    "Fundamentals of Software Development (Java, OOP)",
+    "Model-Based Programming",
+    "Design Principles & Methods",
+    "Digital Logic",
+    "Discrete Structures",
 ]
 
 
 # Shared values available in every template
 @app.context_processor
 def site_globals():
-    return {"email": EMAIL, "links": LINKS}
+    return {"email": EMAIL, "phone": PHONE, "links": LINKS}
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", projects=PROJECTS)
+    # The home page shows the current roles as a short index
+    now = [EXPERIENCE[1], LEADERSHIP[0], LEADERSHIP[1]]
+    return render_template("index.html", projects=PROJECTS, now=now)
 
 
 @app.route("/work/swim")
@@ -61,7 +169,14 @@ def work_swim():
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template(
+        "about.html",
+        experience=EXPERIENCE,
+        leadership=LEADERSHIP,
+        awards=AWARDS,
+        skills=SKILLS,
+        courses=COURSES,
+    )
 
 
 @app.route("/contact")
@@ -69,7 +184,7 @@ def contact():
     return render_template("contact.html")
 
 
-# Old pages from the previous version of the site. Redirect instead of
+# Old pages from the first version of the site. Redirect instead of
 # 404ing in case someone saved or shared one of these links.
 @app.route("/projects")
 def old_projects():

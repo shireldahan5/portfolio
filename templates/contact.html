@@ -3,27 +3,31 @@
 {% block title %}Contact &middot; Shirel Dahan{% endblock %}
 
 {% block content %}
-<div class="page container">
-  <h1 class="page__title">Contact</h1>
+<section class="page-head container">
+  <h1 class="page-head__title">
+    <span class="line"><span>Say <em>hello</em></span></span>
+  </h1>
+</section>
 
-  <div class="contact">
-    <p class="contact__text">
-      Email is the best way to reach me. I&rsquo;m looking for a Summer 2027
-      internship, and I&rsquo;m happy to talk about anything on this site.
-    </p>
+<section class="contact container">
+  <p class="contact__text" data-reveal>
+    Email is the best way to reach me. I&rsquo;m looking for a Summer 2027
+    internship, and I&rsquo;m happy to talk about anything on this site.
+  </p>
 
-    <p class="contact__email">
-      <a href="mailto:{{ email }}">{{ email }}</a>
-    </p>
-    <!-- Hidden until main.js confirms the clipboard is available -->
-    <button class="copy-button" type="button" data-copy="{{ email }}" hidden>Copy address</button>
-    <p class="copy-status" role="status" aria-live="polite"></p>
+  <p class="contact__email" data-reveal>
+    <a class="u" href="mailto:{{ email }}">{{ email }}</a>
+  </p>
+  <!-- Hidden until main.js confirms the clipboard is available -->
+  <button class="button" type="button" data-copy="{{ email }}" hidden>Copy address</button>
+  <p class="copy-status" role="status" aria-live="polite"></p>
 
-    <dl class="facts facts--compact">
-      <div><dt>GitHub</dt><dd><a href="{{ links.github }}">github.com/shireldahan5</a></dd></div>
-      <div><dt>LinkedIn</dt><dd><a href="{{ links.linkedin }}">linkedin.com/in/shireldahan</a></dd></div>
-      <div><dt>Based in</dt><dd>Montréal, Québec</dd></div>
-    </dl>
-  </div>
-</div>
+  <dl class="meta contact__meta" data-reveal>
+    <div><dt class="label">Phone</dt><dd><a class="u" href="tel:+14388278376">{{ phone }}</a></dd></div>
+    <div><dt class="label">Based in</dt><dd>Montréal, Québec</dd></div>
+  </dl>
+</section>
 {% endblock %}
+
+{# The email is already the whole page, so the closing band only keeps its links #}
+{% block coda %}{% endblock %}

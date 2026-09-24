@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}Shirel Dahan{% endblock %}</title>
-  <meta name="description" content="{% block description %}Shirel Dahan is a software engineering student at McGill University who designs and builds websites with HTML, CSS and a little JavaScript.{% endblock %}" />
+  <meta name="description" content="{% block description %}Shirel Dahan is a software engineering student at McGill University who builds websites and web apps.{% endblock %}" />
 
   <!-- Link previews (Slack, iMessage, LinkedIn) -->
   <meta property="og:title" content="{{ self.title() }}" />
@@ -12,8 +12,13 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="{{ url_for('static', filename='img/og.png', _external=True) }}" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#f5f2ec" />
 
   <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml" />
+
+  <!-- Runs before the page paints, so CSS knows JavaScript is available
+       and can hide the things main.js will reveal on scroll. -->
+  <script>document.documentElement.classList.add('js');</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,7 +38,7 @@
           {% set nav = [('index', 'Work'), ('about', 'About'), ('contact', 'Contact')] %}
           {% for endpoint, label in nav %}
           <li>
-            <a href="{{ url_for(endpoint) }}"
+            <a class="u" href="{{ url_for(endpoint) }}"
                {% if request.endpoint == endpoint or (endpoint == 'index' and request.endpoint and request.endpoint.startswith('work_')) %}aria-current="page"{% endif %}>
               {{ label }}
             </a>
@@ -48,20 +53,28 @@
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <p class="site-footer__contact">
-        <a href="mailto:{{ email }}">{{ email }}</a>
+  <!-- The closing section on every page: a dark band with the one thing
+       I'd like a visitor to do next. -->
+  <footer class="coda">
+    <div class="container">
+      {% block coda %}
+      <p class="label coda__kicker" data-reveal>Looking for a Summer 2027 internship</p>
+      <p class="coda__email" data-reveal>
+        <a class="u" href="mailto:{{ email }}">{{ email }}</a>
       </p>
-      <ul class="site-footer__links" role="list">
-        <li><a href="{{ links.github }}">GitHub</a></li>
-        <li><a href="{{ links.linkedin }}">LinkedIn</a></li>
-      </ul>
-      <p class="site-footer__colophon">
-        Built with HTML, CSS, a few lines of JavaScript and Flask.
-        Set in Instrument Serif and Inter.
-        <a href="{{ links.github }}/portfolio">Source on GitHub</a>.
-      </p>
+      {% endblock %}
+
+      <div class="coda__base">
+        <ul class="coda__links" role="list">
+          <li><a class="u" href="{{ links.github }}">GitHub</a></li>
+          <li><a class="u" href="{{ links.linkedin }}">LinkedIn</a></li>
+        </ul>
+        <p class="coda__colophon">
+          Built with HTML, CSS, a little JavaScript and Flask. Set in Instrument Serif and Inter.
+          <a class="u" href="{{ links.github }}/portfolio">Source</a>
+        </p>
+        <p class="coda__copy">&copy; 2026 &middot; Montréal</p>
+      </div>
     </div>
   </footer>
 
